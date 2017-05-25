@@ -5,26 +5,37 @@ package com.example.localmediaselecter;
  */
 
 public class ModelLocalVideo {
-    private String path;
-    private String fromFloder;
+    //视频id
+    private int id;
+    //视频path
+    private String data;
+    //视频时长 unit:ms
     private long duration;
-    private long timeTamp;
-    private String name;
+    //视频名字
+    private String displayName;
+    //视频大小
+    private long size;
+    //视频格式
+    private String mimeType;
+    //视频添加时间
+    private long dateAdded;
+    //视频最后修改时间
+    private long dataModified;
 
-    public String getPath() {
-        return path;
+    public int getId() {
+        return id;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getFromFloder() {
-        return fromFloder;
+    public String getData() {
+        return data;
     }
 
-    public void setFromFloder(String fromFloder) {
-        this.fromFloder = fromFloder;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public long getDuration() {
@@ -35,19 +46,43 @@ public class ModelLocalVideo {
         this.duration = duration;
     }
 
-    public long getTimeTamp() {
-        return timeTamp;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setTimeTamp(long timeTamp) {
-        this.timeTamp = timeTamp;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String getName() {
-        return name;
+    public long getSize() {
+        return size;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public long getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(long dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public long getDataModified() {
+        return dataModified;
+    }
+
+    public void setDataModified(long dataModified) {
+        this.dataModified = dataModified;
     }
 }

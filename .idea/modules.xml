@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\app\app.iml" filepath="C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/localMediaSelecter.iml" filepath="$PROJECT_DIR$/localMediaSelecter.iml" />
+      <module fileurl="file://C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\localMediaSelecter.iml" filepath="C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\localMediaSelecter.iml" />
       <module fileurl="file://$PROJECT_DIR$/localmediaselecter/localmediaselecter.iml" filepath="$PROJECT_DIR$/localmediaselecter/localmediaselecter.iml" />
+      <module fileurl="file://C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\localmediaselecter\localmediaselecter.iml" filepath="C:\Users\Administrator\Desktop\localMediaSelector\localMediaSelecter\localmediaselecter\localmediaselecter.iml" />
     </modules>
   </component>
 </project>
