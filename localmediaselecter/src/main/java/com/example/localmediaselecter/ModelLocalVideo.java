@@ -1,5 +1,9 @@
 package com.example.localmediaselecter;
 
+import android.database.Cursor;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+
 /**
  * Created by zhiyicx on 2017/5/25.
  */
@@ -21,6 +25,17 @@ public class ModelLocalVideo {
     private long dateAdded;
     //视频最后修改时间
     private long dataModified;
+
+    public ModelLocalVideo(@NonNull Cursor cursor) {
+        this.setId(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setData(cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setDuration(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setDisplayName(cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setSize(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setMimeType(cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setDateAdded(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+        this.setDataModified(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
+    }
 
     public int getId() {
         return id;
