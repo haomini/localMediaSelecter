@@ -15,6 +15,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:scaleType="center"
             android:src="@drawable/icon_back" />
 
         <TextView
@@ -23,9 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="选择"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:textSize="17sp" />
 
-        <Button
+        <TextView
             android:id="@+id/haomini_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +35,12 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="#0196E6"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
             android:text="完成"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="15dp" />
     </RelativeLayout>
 </LinearLayout>
