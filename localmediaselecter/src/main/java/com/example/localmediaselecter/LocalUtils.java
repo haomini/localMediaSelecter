@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class LocalUtils {
-    public static List<ModelLocalVideo> doSomething(Context context) {
+    public static List<ModelLocalVideo> getLocalVideo(Context context) {
         List<ModelLocalVideo> localVideoList = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);

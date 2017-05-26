@@ -62,7 +62,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
         mediaContainer = (RecyclerView) view.findViewById(R.id.haomini_media_container);
         mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
-        videoList = LocalUtils.doSomething(getContext());
+        videoList = LocalUtils.getLocalVideo(getContext());
         adapterMedia = new AdapterMedia(getContext(), videoList);
         adapterMedia.setOnCountChangedListener(this);
         ok.setOnClickListener(this);
