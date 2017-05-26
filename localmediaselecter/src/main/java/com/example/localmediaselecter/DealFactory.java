@@ -17,8 +17,6 @@ public class DealFactory {
     private LoadThumbUtils utils;
 
     public DealFactory(Context context) {
-        //cpu核心数
-        int processors = Runtime.getRuntime().availableProcessors();
         sparseArray = new SparseArray<LoadTask>();
 
         lruCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory() / 8)) {

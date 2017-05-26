@@ -17,12 +17,13 @@ import java.util.List;
  * Created by zhiyicx on 2017/5/25.
  */
 
-public class FragmentMediaSelect extends Fragment {
+public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCountChangedListener {
 
     private static FragmentMediaSelect mInstance;
     private int modelKey;
     private int max_num;
     private List<ModelLocalVideo> videoList;
+    private AdapterMedia adapterMedia;
 
     private ImageView back;
     private TextView ok;
@@ -58,7 +59,20 @@ public class FragmentMediaSelect extends Fragment {
         mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         videoList = LocalUtils.doSomething(getContext());
-        mediaContainer.setAdapter(new AdapterMedia(getContext(), videoList));
+        adapterMedia = new AdapterMedia(getContext(), videoList);
+        adapterMedia.setOnCountChangedListener(this);
+        mediaContainer.setAdapter(adapterMedia);
         return view;
+    }
+
+    @Override
+    public void onCountChanged(List<ModelLocalVideo> videoList) {
+        if (videoList.size() > 0) {
+            ok.setEnabled(true);
+            ok.setText("完成(" + videoList.size() + "/" + max_num);
+        } else {
+            ok.setEnabled(false);
+            ok.setText("完成");
+        }
     }
 }

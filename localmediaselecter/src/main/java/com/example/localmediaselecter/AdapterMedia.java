@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,10 +20,13 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
     private List<ModelLocalVideo> videoList;
     private Context context;
     private DealFactory factory;
+    private List<ModelLocalVideo> countList;
+    private OnCountChangedListener onCountChangedListener;
 
     public AdapterMedia(Context context, List<ModelLocalVideo> videoList) {
         this.context = context;
         this.videoList = videoList;
+        countList = new LinkedList<>();
         factory = new DealFactory(context);
     }
 
@@ -42,6 +46,15 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
                 int position = mediaViewHolder.getAdapterPosition();
                 videoList.get(position).setChecked(!videoList.get(position).isChecked());
                 setStatus(mediaViewHolder, videoList.get(position).isChecked());
+                if (videoList.get(position).isChecked()) {
+                    countList.add(videoList.get(position));
+                } else {
+                    countList.remove(videoList.get(position));
+                }
+                //计数
+                if (onCountChangedListener != null) {
+                    onCountChangedListener.onCountChanged(countList);
+                }
             }
         });
     }
@@ -70,5 +83,13 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
             preview.setLayoutParams(layoutParams);
             status = (CheckBox) itemView.findViewById(R.id.item_preview_status);
         }
+    }
+
+    public void setOnCountChangedListener(OnCountChangedListener listener) {
+        this.onCountChangedListener = listener;
+    }
+
+    public interface OnCountChangedListener {
+        void onCountChanged(List<ModelLocalVideo> videoList);
     }
 }
