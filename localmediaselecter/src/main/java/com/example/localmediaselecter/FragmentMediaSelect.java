@@ -62,6 +62,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
         adapterMedia = new AdapterMedia(getContext(), videoList);
         adapterMedia.setOnCountChangedListener(this);
         mediaContainer.setAdapter(adapterMedia);
+        mediaContainer.addItemDecoration(new HaominiItemDecoration());
         return view;
     }
 
