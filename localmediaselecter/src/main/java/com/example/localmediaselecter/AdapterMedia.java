@@ -18,21 +18,23 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
 
     private List<ModelLocalVideo> videoList;
     private Context context;
+    private DealFactory factory;
 
     public AdapterMedia(Context context, List<ModelLocalVideo> videoList) {
         this.context = context;
         this.videoList = videoList;
+        factory = new DealFactory(context);
     }
 
     @Override
     public MediaViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.haomini_item_video, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.haomini_item_video, viewGroup, false);
         return new MediaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MediaViewHolder mediaViewHolder, int i) {
-        
+        factory.setBitmap(mediaViewHolder.preview, videoList.get(i).getId());
     }
 
     @Override

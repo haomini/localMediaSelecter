@@ -1,5 +1,7 @@
 package com.example.localmediaselecter;
 
+import android.support.annotation.IntDef;
+
 /**
  * Created by Administrator on 2017/5/25/025.
  */
@@ -11,4 +13,12 @@ public class Constant {
 
     public static final String MAX_NUM = "max_num";
     public static final int DEFAULT_NUM = 9;
+
+    public static final int VIDEO_ONLY = 0;
+    public static final int PHOTO_ONLY = 1;
+    public static final int MUTI_MEDIA = 2;
+
+    @IntDef({VIDEO_ONLY, PHOTO_ONLY, MUTI_MEDIA})
+    public @interface MediaModel {
+    }
 }

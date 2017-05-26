@@ -8,13 +8,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ff9900"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/image80x80yuanjiao" />
 
     <CheckBox
         android:id="@+id/item_preview_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/item_preview"
+        android:layout_alignRight="@id/item_preview"
         android:layout_alignTop="@id/item_preview"
         android:layout_marginRight="3dp"
         android:layout_marginTop="3dp"
