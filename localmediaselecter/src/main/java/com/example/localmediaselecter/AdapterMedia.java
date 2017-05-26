@@ -33,8 +33,21 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
     }
 
     @Override
-    public void onBindViewHolder(MediaViewHolder mediaViewHolder, int i) {
+    public void onBindViewHolder(final MediaViewHolder mediaViewHolder, int i) {
         factory.setBitmap(mediaViewHolder.preview, videoList.get(i).getId());
+        mediaViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = mediaViewHolder.getAdapterPosition();
+                setStatus(mediaViewHolder, videoList.get(position).isChecked());
+                videoList.get(position).setChecked(!videoList.get(position).isChecked());
+            }
+        });
+    }
+
+    public void setStatus(MediaViewHolder holder, boolean status) {
+        holder.status.setChecked(!status);
+        holder.preview.setAlpha(!status ? 0.3f : 1.0f);
     }
 
     @Override

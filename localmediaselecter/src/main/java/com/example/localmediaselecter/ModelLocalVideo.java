@@ -25,8 +25,16 @@ public class ModelLocalVideo {
     private long dateAdded;
     //视频最后修改时间
     private long dataModified;
-    //视频缩略图
-    private String videoThumb;
+    //是否被选中
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public ModelLocalVideo(@NonNull Cursor cursor) {
         this.setId(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)));
