@@ -47,13 +47,18 @@ public class FragmentMediaSelect extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return findViews();
+    }
+
+    public View findViews() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.haomini_fragment_media, null);
         back = (ImageView) view.findViewById(R.id.haomini_title_back);
         ok = (TextView) view.findViewById(R.id.haomini_title_right);
         mediaContainer = (RecyclerView) view.findViewById(R.id.haomini_media_container);
+        mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
         videoList = LocalUtils.doSomething(getContext());
         mediaContainer.setAdapter(new AdapterMedia(getContext(), videoList));
-        mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
         return view;
     }
 }

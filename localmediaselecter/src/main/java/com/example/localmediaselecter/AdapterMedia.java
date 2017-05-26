@@ -42,6 +42,7 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
         return videoList.size();
     }
 
+
     public class MediaViewHolder extends RecyclerView.ViewHolder {
         ImageView preview;
         CheckBox status;

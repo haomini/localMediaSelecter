@@ -2,30 +2,24 @@ package com.example.localmediaselecter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
+import android.util.SparseArray;
 import android.widget.ImageView;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zhiyicx on 2017/5/26.
  */
 
 public class DealFactory {
-    private ExecutorService service;
+    private SparseArray sparseArray;
     private LruCache<String, Bitmap> lruCache;
     private LoadThumbUtils utils;
 
     public DealFactory(Context context) {
         //cpu核心数
         int processors = Runtime.getRuntime().availableProcessors();
-        service = new ThreadPoolExecutor(processors, processors,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(),
-                new ThreadPoolExecutor.DiscardOldestPolicy());
+        sparseArray = new SparseArray<LoadTask>();
 
         lruCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory() / 8)) {
             @Override
@@ -38,15 +32,30 @@ public class DealFactory {
     }
 
     public void setBitmap(ImageView imageView, int id) {
+        imageView.setImageResource(R.drawable.image80x80yuanjiao);
         imageView.setTag(id);
         Bitmap bitmap = lruCache.get(String.valueOf(id));
         if (bitmap == null) {
-            service.submit(new LoadRunnable(id, imageView));
+            LoadTask loadTask = new LoadTask(id, imageView);
+            sparseArray.put(id, loadTask);
+            loadTask.execute();
+
         } else {
             imageView.setImageBitmap(bitmap);
         }
     }
 
+    public void pauseTask() {
+        for (int i = 0; i < sparseArray.size(); i++) {
+            LoadTask loadTask = ((LoadTask) sparseArray.get(i));
+            if (loadTask != null && !loadTask.isCancelled()) {
+                loadTask.cancel(false);
+            }
+        }
+    }
+
+
+    @Deprecated
     public class LoadRunnable implements Runnable {
 
         private int id;
@@ -61,10 +70,10 @@ public class DealFactory {
         public void run() {
             final Bitmap bitmap = utils.getThumbByLocal(id);
             if (bitmap == null) {
-                lruCache.put(String.valueOf(id), bitmap);
+                return;
+                //lruCache.put(String.valueOf(id), bitmap);
             } else {
                 lruCache.put(String.valueOf(id), bitmap);
-                if(id == (int)imageView.getTag())
                 imageView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -74,4 +83,32 @@ public class DealFactory {
             }
         }
     }
+
+    public class LoadTask extends AsyncTask<Integer, Void, Bitmap> {
+        private int id;
+        private ImageView imageView;
+
+        public LoadTask(int id, ImageView imageView) {
+            this.id = id;
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Integer... integers) {
+            return utils.getThumbByLocal(id);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap == null) {
+                return;
+                //lruCache.put(String.valueOf(id), bitmap);
+            } else {
+                lruCache.put(String.valueOf(id), bitmap);
+                if (id == (int) imageView.getTag())
+                    imageView.setImageBitmap(bitmap);
+            }
+        }
+    }
+
 }
