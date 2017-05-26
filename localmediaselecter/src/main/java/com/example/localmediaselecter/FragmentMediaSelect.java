@@ -1,5 +1,7 @@
 package com.example.localmediaselecter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,23 +13,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by zhiyicx on 2017/5/25.
  */
 
-public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCountChangedListener {
+public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCountChangedListener, View.OnClickListener {
 
     private static FragmentMediaSelect mInstance;
+    private ImageView back;
+    private TextView ok;
+    private RecyclerView mediaContainer;
+
     private int modelKey;
     private int max_num;
     private List<ModelLocalVideo> videoList;
     private AdapterMedia adapterMedia;
-
-    private ImageView back;
-    private TextView ok;
-    private RecyclerView mediaContainer;
+    private List<ModelLocalVideo> resultList;
 
     public static FragmentMediaSelect getInstance(Bundle bundle) {
         if (mInstance == null)
@@ -61,6 +65,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
         videoList = LocalUtils.doSomething(getContext());
         adapterMedia = new AdapterMedia(getContext(), videoList);
         adapterMedia.setOnCountChangedListener(this);
+        ok.setOnClickListener(this);
         mediaContainer.setAdapter(adapterMedia);
         mediaContainer.addItemDecoration(new HaominiItemDecoration());
         return view;
@@ -68,12 +73,23 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
 
     @Override
     public void onCountChanged(List<ModelLocalVideo> videoList) {
+        resultList = videoList;
         if (videoList.size() > 0) {
             ok.setEnabled(true);
             ok.setText("完成(" + videoList.size() + "/" + max_num);
         } else {
             ok.setEnabled(false);
             ok.setText("完成");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == ok) {
+            Intent intent = new Intent();
+            intent.putExtra("data", (LinkedList)resultList);
+            getActivity().setResult(Activity.RESULT_OK, intent);
+            getActivity().finish();
         }
     }
 }

@@ -1,10 +1,10 @@
 package com.example.zhiyicx.jpushtest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import com.example.localmediaselecter.Constant;
-import com.example.localmediaselecter.FragmentMediaSelect;
+import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,16 +12,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initFragment();
+        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainActivity.this, HomeActivity.class), 1);
+            }
+        });
     }
 
-    private void initFragment() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constant.MODEL_KEY, Constant.SINGLE_MODEL);
-        FragmentMediaSelect mediaSelect = FragmentMediaSelect.getInstance(bundle);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.home, mediaSelect)
-                .commit();
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Log.e("M", "o" + data.getSerializableExtra("data"));
+        }
     }
 }
