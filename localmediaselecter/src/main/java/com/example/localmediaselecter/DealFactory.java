@@ -16,7 +16,7 @@ public class DealFactory {
     private LruCache<String, Bitmap> lruCache;
     private LoadThumbUtils utils;
 
-    public DealFactory(Context context) {
+    public DealFactory(Context context, @Constant.MediaModel int model) {
         sparseArray = new SparseArray<LoadTask>();
 
         lruCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory() / 8)) {
@@ -26,7 +26,7 @@ public class DealFactory {
             }
         };
 
-        utils = new LoadThumbUtils(context, Constant.VIDEO_ONLY);
+        utils = new LoadThumbUtils(context, model);
     }
 
     public void setBitmap(ImageView imageView, int id) {

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
-import com.example.localmediaselecter.model.ModelLocalVideo;
+import com.example.localmediaselecter.model.ModelLocalMedia;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,17 +19,17 @@ import java.util.List;
 
 public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHolder> {
 
-    private List<ModelLocalVideo> videoList;
+    private List<? extends ModelLocalMedia> mediaList;
     private Context context;
     private DealFactory factory;
-    private List<ModelLocalVideo> countList;
+    private List<ModelLocalMedia> countList;
     private OnCountChangedListener onCountChangedListener;
 
-    public AdapterMedia(Context context, List<ModelLocalVideo> videoList) {
+    public AdapterMedia(Context context, List<? extends ModelLocalMedia> mediaList, @Constant.MediaModel int model) {
         this.context = context;
-        this.videoList = videoList;
+        this.mediaList = mediaList;
         countList = new LinkedList<>();
-        factory = new DealFactory(context);
+        factory = new DealFactory(context, model);
     }
 
     @Override
@@ -40,18 +40,18 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
 
     @Override
     public void onBindViewHolder(final MediaViewHolder mediaViewHolder, int i) {
-        factory.setBitmap(mediaViewHolder.preview, videoList.get(i).getId());
-        setStatus(mediaViewHolder, videoList.get(i).isChecked());
+        factory.setBitmap(mediaViewHolder.preview, mediaList.get(i).getId());
+        setStatus(mediaViewHolder, mediaList.get(i).isChecked());
         mediaViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = mediaViewHolder.getAdapterPosition();
-                videoList.get(position).setChecked(!videoList.get(position).isChecked());
-                setStatus(mediaViewHolder, videoList.get(position).isChecked());
-                if (videoList.get(position).isChecked()) {
-                    countList.add(videoList.get(position));
+                mediaList.get(position).setChecked(!mediaList.get(position).isChecked());
+                setStatus(mediaViewHolder, mediaList.get(position).isChecked());
+                if (mediaList.get(position).isChecked()) {
+                    countList.add(mediaList.get(position));
                 } else {
-                    countList.remove(videoList.get(position));
+                    countList.remove(mediaList.get(position));
                 }
                 //计数
                 if (onCountChangedListener != null) {
@@ -68,7 +68,7 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
 
     @Override
     public int getItemCount() {
-        return videoList.size();
+        return mediaList.size();
     }
 
 
@@ -91,7 +91,7 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
         this.onCountChangedListener = listener;
     }
 
-    public interface OnCountChangedListener {
-        void onCountChanged(List<ModelLocalVideo> videoList);
+    public interface OnCountChangedListener<T extends ModelLocalMedia> {
+        void onCountChanged(List<T> mediaList);
     }
 }

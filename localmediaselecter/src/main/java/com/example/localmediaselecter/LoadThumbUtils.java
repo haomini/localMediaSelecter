@@ -23,11 +23,10 @@ public class LoadThumbUtils {
             case Constant.VIDEO_ONLY:
                 bitmap = MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), media_id,
                         MediaStore.Video.Thumbnails.MINI_KIND, null);
-                if (bitmap == null) {
-
-                }
                 break;
-            case Constant.PHOTO_ONLY:
+            case Constant.IMAGE_ONLY:
+                bitmap = MediaStore.Images.Thumbnails.getThumbnail(context.getContentResolver(), media_id,
+                        MediaStore.Video.Thumbnails.MINI_KIND, null);
                 break;
             case Constant.MUTI_MEDIA:
                 break;

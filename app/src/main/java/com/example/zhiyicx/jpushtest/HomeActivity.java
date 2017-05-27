@@ -17,7 +17,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initFragment() {
         Bundle bundle = new Bundle();
-        bundle.putInt(Constant.MODEL_KEY, Constant.SINGLE_MODEL);
+        bundle.putInt(Constant.MODEL_KEY, Constant.MUTI_MODEL);
+        bundle.putInt(Constant.MEDIA_MODE, Constant.IMAGE_ONLY);
+        bundle.putInt(Constant.MAX_NUM, Constant.DEFAULT_NUM);
         FragmentMediaSelect mediaSelect = FragmentMediaSelect.getInstance(bundle);
         getSupportFragmentManager()
                 .beginTransaction()

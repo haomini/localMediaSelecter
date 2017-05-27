@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.localmediaselecter.model.ModelLocalVideo;
+import com.example.localmediaselecter.model.ModelLocalMedia;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,9 +31,13 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
 
     private int modelKey;
     private int max_num;
-    private List<ModelLocalVideo> videoList;
+
+    @Constant.MediaModel
+    private int mediaMode;
+
+    private List<ModelLocalMedia> mediaList;
+    private List<ModelLocalMedia> resultList;
     private AdapterMedia adapterMedia;
-    private List<ModelLocalVideo> resultList;
 
     public static FragmentMediaSelect getInstance(Bundle bundle) {
         if (mInstance == null)
@@ -46,6 +50,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         modelKey = getArguments().getInt(Constant.MODEL_KEY, Constant.SINGLE_MODEL);
+        mediaMode = getArguments().getInt(Constant.MEDIA_MODE, Constant.VIDEO_ONLY);
         if (modelKey == Constant.MUTI_MODEL) {
             max_num = getArguments().getInt(Constant.MAX_NUM, Constant.DEFAULT_NUM);
         }
@@ -73,9 +78,8 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
      */
     public void manageAdapter() {
         //数据源
-        videoList = LocalUtils.getLocalVideo(getContext());
-        LocalUtils.getLocalPic(getContext());
-        adapterMedia = new AdapterMedia(getContext(), videoList);
+        mediaList = LocalUtils.getLocalMedia(getContext(), mediaMode);
+        adapterMedia = new AdapterMedia(getContext(), mediaList, modelKey);
         mediaContainer.setAdapter(adapterMedia);
         //grid 布局
         mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -90,12 +94,8 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
         back.setOnClickListener(this);
     }
 
-    public void loadData() {
-
-    }
-
     @Override
-    public void onCountChanged(List<ModelLocalVideo> videoList) {
+    public void onCountChanged(List videoList) {
         resultList = videoList;
         if (videoList.size() > 0) {
             ok.setEnabled(true);

@@ -3,8 +3,9 @@ package com.example.localmediaselecter;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
-import android.util.Log;
 
+import com.example.localmediaselecter.model.ModelLocalImage;
+import com.example.localmediaselecter.model.ModelLocalMedia;
 import com.example.localmediaselecter.model.ModelLocalVideo;
 
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import java.util.List;
  */
 
 public class LocalUtils {
-    public static List<ModelLocalVideo> getLocalVideo(Context context) {
-        List<ModelLocalVideo> localVideoList = new ArrayList<>();
+    private static List<ModelLocalMedia> getLocalVideo(Context context) {
+        List<ModelLocalMedia> localVideoList = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);
 
@@ -27,18 +28,31 @@ public class LocalUtils {
         return localVideoList;
     }
 
-    public static List getLocalPic(Context context) {
-        List localPic = new ArrayList();
+    private static List<ModelLocalMedia> getLocalPic(Context context) {
+        List<ModelLocalMedia> localPic = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);
 
-        cursor.moveToFirst();
-        for (int i = 0; i < cursor.getColumnCount(); i++) {
-            Log.e(cursor.getColumnName(i) + " 0:", cursor.getString(i)+" ;");
+        while (cursor.moveToNext()) {
+            localPic.add(new ModelLocalImage(cursor));
         }
-//        while(cursor.moveToNext()){
-//            localPic.add()
-//        }
-        return null;
+        cursor.close();
+        return localPic;
+    }
+
+    public static List<ModelLocalMedia> getLocalMedia(Context context, @Constant.MediaModel int model_key) {
+        List<ModelLocalMedia> mediaList = null;
+        switch (model_key) {
+            case Constant.IMAGE_ONLY:
+                mediaList = getLocalPic(context);
+                break;
+            case Constant.VIDEO_ONLY:
+                mediaList = getLocalVideo(context);
+                break;
+            case Constant.MUTI_MEDIA:
+                //待处理
+                break;
+        }
+        return mediaList;
     }
 }
