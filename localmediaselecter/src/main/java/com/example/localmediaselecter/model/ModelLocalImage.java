@@ -11,11 +11,11 @@ import android.support.annotation.NonNull;
 
 public class ModelLocalImage extends ModelLocalMedia {
 
-    //media容器
+    //图片容器
     private String bucketDisplayName;
-    //media高
+    //图片高
     private int width;
-    //media宽
+    //图片宽
     private int height;
 
     public ModelLocalImage(@NonNull Cursor cursor) {

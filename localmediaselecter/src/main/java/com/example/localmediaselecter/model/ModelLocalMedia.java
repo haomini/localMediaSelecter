@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by zhiyicx on 2017/5/27.
+ * Created by haomini on 2017/5/27.
  */
 
 public class ModelLocalMedia implements Parcelable {
@@ -24,6 +24,48 @@ public class ModelLocalMedia implements Parcelable {
     private long dataModified;
     //是否被选中
     private boolean isChecked;
+
+    public ModelLocalMedia() {
+
+    }
+
+    protected ModelLocalMedia(Parcel in) {
+        id = in.readInt();
+        data = in.readString();
+        displayName = in.readString();
+        size = in.readLong();
+        mimeType = in.readString();
+        dateAdded = in.readLong();
+        dataModified = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(data);
+        dest.writeString(displayName);
+        dest.writeLong(size);
+        dest.writeString(mimeType);
+        dest.writeLong(dateAdded);
+        dest.writeLong(dataModified);
+    }
+
+    public static final Creator<ModelLocalMedia> CREATOR = new Creator<ModelLocalMedia>() {
+        @Override
+        public ModelLocalMedia createFromParcel(Parcel in) {
+            return new ModelLocalMedia(in);
+        }
+
+        @Override
+        public ModelLocalMedia[] newArray(int size) {
+            return new ModelLocalMedia[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public int getId() {
         return id;
@@ -87,47 +129,5 @@ public class ModelLocalMedia implements Parcelable {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
-    }
-
-    public ModelLocalMedia() {
-
-    }
-
-    protected ModelLocalMedia(Parcel in) {
-        id = in.readInt();
-        data = in.readString();
-        displayName = in.readString();
-        size = in.readLong();
-        mimeType = in.readString();
-        dateAdded = in.readLong();
-        dataModified = in.readLong();
-    }
-
-    public static final Creator<ModelLocalMedia> CREATOR = new Creator<ModelLocalMedia>() {
-        @Override
-        public ModelLocalMedia createFromParcel(Parcel in) {
-            return new ModelLocalMedia(in);
-        }
-
-        @Override
-        public ModelLocalMedia[] newArray(int size) {
-            return new ModelLocalMedia[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(data);
-        dest.writeString(displayName);
-        dest.writeLong(size);
-        dest.writeString(mimeType);
-        dest.writeLong(dateAdded);
-        dest.writeLong(dataModified);
     }
 }

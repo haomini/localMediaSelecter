@@ -49,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+        findViewById(R.id.go_audio).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RecoderActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
 

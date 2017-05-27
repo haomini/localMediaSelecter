@@ -13,11 +13,11 @@ public class ModelLocalVideo extends ModelLocalMedia {
 
     //视频时长 unit:ms
     private long duration;
-    //media容器
+    //视频容器
     private String bucketDisplayName;
-    //media高
+    //视频 高
     private int width;
-    //media宽
+    //视频 宽
     private int height;
 
     protected ModelLocalVideo(Parcel in) {
