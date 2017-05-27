@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import com.example.localmediaselecter.model.ModelLocalAudio;
 import com.example.localmediaselecter.model.ModelLocalImage;
 import com.example.localmediaselecter.model.ModelLocalMedia;
 import com.example.localmediaselecter.model.ModelLocalVideo;
@@ -29,18 +30,30 @@ public class LocalUtils {
     }
 
     private static List<ModelLocalMedia> getLocalPic(Context context) {
-        List<ModelLocalMedia> localPic = new ArrayList<>();
+        List<ModelLocalMedia> localPicList = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);
 
         while (cursor.moveToNext()) {
-            localPic.add(new ModelLocalImage(cursor));
+            localPicList.add(new ModelLocalImage(cursor));
         }
         cursor.close();
-        return localPic;
+        return localPicList;
     }
 
-    public static  List<ModelLocalMedia> getLocalMedia(Context context, @Constant.MediaModel int model_key) {
+    public static List<ModelLocalMedia> getLocalAudio(Context context) {
+        List<ModelLocalMedia> localAudioList = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            localAudioList.add(new ModelLocalAudio(cursor));
+        }
+        cursor.close();
+        return localAudioList;
+    }
+
+    public static List<ModelLocalMedia> getLocalMedia(Context context, @Constant.MediaModel int model_key) {
         List<ModelLocalMedia> mediaList = null;
         switch (model_key) {
             case Constant.IMAGE_ONLY:
@@ -49,8 +62,8 @@ public class LocalUtils {
             case Constant.VIDEO_ONLY:
                 mediaList = getLocalVideo(context);
                 break;
-            case Constant.MUTI_MEDIA:
-                //待处理
+            case Constant.AUDIO_ONLY:
+                mediaList = getLocalAudio(context);
                 break;
         }
         return mediaList;

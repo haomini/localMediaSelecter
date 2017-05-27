@@ -3,7 +3,6 @@ package com.example.zhiyicx.jpushtest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.localmediaselecter.utils.Constant;
 import com.example.localmediaselecter.FragmentMediaSelect;
 
 public class HomeActivity extends AppCompatActivity {
@@ -16,11 +15,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constant.MODEL_KEY, Constant.MUTI_MODEL);
-        bundle.putInt(Constant.MEDIA_MODE, Constant.VIDEO_ONLY);
-        bundle.putInt(Constant.MAX_NUM, Constant.DEFAULT_NUM);
-        FragmentMediaSelect mediaSelect = FragmentMediaSelect.getInstance(bundle);
+        FragmentMediaSelect mediaSelect = FragmentMediaSelect.getInstance(getIntent().getExtras());
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.home, mediaSelect)

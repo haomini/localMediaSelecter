@@ -22,30 +22,8 @@ public class ModelLocalMedia implements Parcelable {
     private long dateAdded;
     //media最后修改时间
     private long dataModified;
-    //media容器
-    private String bucketDisplayName;
-    //media高
-    private int width;
-    //media宽
-    private int height;
     //是否被选中
     private boolean isChecked;
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public int getId() {
         return id;
@@ -103,14 +81,6 @@ public class ModelLocalMedia implements Parcelable {
         this.dataModified = dataModified;
     }
 
-    public String getBucketDisplayName() {
-        return bucketDisplayName;
-    }
-
-    public void setBucketDisplayName(String bucketDisplayName) {
-        this.bucketDisplayName = bucketDisplayName;
-    }
-
     public boolean isChecked() {
         return isChecked;
     }
@@ -131,9 +101,6 @@ public class ModelLocalMedia implements Parcelable {
         mimeType = in.readString();
         dateAdded = in.readLong();
         dataModified = in.readLong();
-        bucketDisplayName = in.readString();
-        width = in.readInt();
-        height = in.readInt();
     }
 
     public static final Creator<ModelLocalMedia> CREATOR = new Creator<ModelLocalMedia>() {
@@ -162,8 +129,5 @@ public class ModelLocalMedia implements Parcelable {
         dest.writeString(mimeType);
         dest.writeLong(dateAdded);
         dest.writeLong(dataModified);
-        dest.writeString(bucketDisplayName);
-        dest.writeInt(width);
-        dest.writeInt(height);
     }
 }

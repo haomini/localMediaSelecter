@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 /**
  * Created by zhouhao on 2017/5/25.
@@ -14,10 +13,28 @@ public class ModelLocalVideo extends ModelLocalMedia {
 
     //视频时长 unit:ms
     private long duration;
+    //media容器
+    private String bucketDisplayName;
+    //media高
+    private int width;
+    //media宽
+    private int height;
 
     protected ModelLocalVideo(Parcel in) {
         super(in);
+        bucketDisplayName = in.readString();
+        width = in.readInt();
+        height = in.readInt();
         duration = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(bucketDisplayName);
+        dest.writeInt(width);
+        dest.writeInt(height);
+        dest.writeLong(duration);
     }
 
     public static final Creator<ModelLocalVideo> CREATOR = new Creator<ModelLocalVideo>() {
@@ -44,8 +61,30 @@ public class ModelLocalVideo extends ModelLocalMedia {
         this.setWidth(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.WIDTH)));
         this.setHeight(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.HEIGHT)));
         this.setDuration(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DURATION)));
+    }
 
-        Log.e("ModelLocalVideo", "ModelLocalVideo(): " + getMimeType());
+    public String getBucketDisplayName() {
+        return bucketDisplayName;
+    }
+
+    public void setBucketDisplayName(String bucketDisplayName) {
+        this.bucketDisplayName = bucketDisplayName;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public long getDuration() {
@@ -54,16 +93,5 @@ public class ModelLocalVideo extends ModelLocalMedia {
 
     public void setDuration(long duration) {
         this.duration = duration;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeLong(duration);
     }
 }

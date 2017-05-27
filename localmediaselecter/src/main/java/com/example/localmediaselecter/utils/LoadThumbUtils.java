@@ -28,7 +28,7 @@ public class LoadThumbUtils {
                 bitmap = MediaStore.Images.Thumbnails.getThumbnail(context.getContentResolver(), media_id,
                         MediaStore.Video.Thumbnails.MINI_KIND, null);
                 break;
-            case Constant.MUTI_MEDIA:
+            case Constant.AUDIO_ONLY: //音频无bitmap
                 break;
         }
         return bitmap;
