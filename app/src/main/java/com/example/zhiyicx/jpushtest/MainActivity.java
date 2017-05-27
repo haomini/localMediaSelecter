@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.example.localmediaselecter.model.ModelLocalVideo;
 import com.example.localmediaselecter.utils.Constant;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Log.e("M", "o" + data.getSerializableExtra("data"));
+            Log.e("M", "o" + ((List<ModelLocalVideo>)data.getSerializableExtra("data")).get(0).getDuration());
         }
     }
 }

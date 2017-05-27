@@ -25,7 +25,8 @@ import java.util.List;
  * Created by zhiyicx on 2017/5/25.
  */
 
-public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCountChangedListener, View.OnClickListener {
+public class FragmentMediaSelect extends Fragment
+        implements AdapterMedia.OnCountChangedListener, View.OnClickListener {
 
     private static FragmentMediaSelect mInstance;
     private ImageView back;
@@ -39,7 +40,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
     private int mediaMode;
 
     private List<ModelLocalMedia> mediaList;
-    private List<ModelLocalMedia> resultList;
+    private List<? extends ModelLocalMedia> resultList;
     private AdapterMedia adapterMedia;
 
     public static FragmentMediaSelect getInstance(Bundle bundle) {
