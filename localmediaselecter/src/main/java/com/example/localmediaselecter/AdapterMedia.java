@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.example.localmediaselecter.model.ModelLocalVideo;
+
 import java.util.LinkedList;
 import java.util.List;
 

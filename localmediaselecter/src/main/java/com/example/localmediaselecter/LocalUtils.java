@@ -3,6 +3,9 @@ package com.example.localmediaselecter;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.util.Log;
+
+import com.example.localmediaselecter.model.ModelLocalVideo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,5 +25,20 @@ public class LocalUtils {
         }
         cursor.close();
         return localVideoList;
+    }
+
+    public static List getLocalPic(Context context) {
+        List localPic = new ArrayList();
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            Log.e(cursor.getColumnName(i) + " 0:", cursor.getString(i)+" ;");
+        }
+//        while(cursor.moveToNext()){
+//            localPic.add()
+//        }
+        return null;
     }
 }

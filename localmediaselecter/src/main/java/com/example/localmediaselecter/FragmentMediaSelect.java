@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.localmediaselecter.model.ModelLocalVideo;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,15 +62,36 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
         back = (ImageView) view.findViewById(R.id.haomini_title_back);
         ok = (TextView) view.findViewById(R.id.haomini_title_right);
         mediaContainer = (RecyclerView) view.findViewById(R.id.haomini_media_container);
-        mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
-        videoList = LocalUtils.getLocalVideo(getContext());
-        adapterMedia = new AdapterMedia(getContext(), videoList);
-        adapterMedia.setOnCountChangedListener(this);
-        ok.setOnClickListener(this);
-        mediaContainer.setAdapter(adapterMedia);
-        mediaContainer.addItemDecoration(new HaominiItemDecoration());
+        manageAdapter();
+        initListener();
         return view;
+    }
+
+    /**
+     * adapter 相关
+     */
+    public void manageAdapter() {
+        //数据源
+        videoList = LocalUtils.getLocalVideo(getContext());
+        LocalUtils.getLocalPic(getContext());
+        adapterMedia = new AdapterMedia(getContext(), videoList);
+        mediaContainer.setAdapter(adapterMedia);
+        //grid 布局
+        mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //间距
+        mediaContainer.addItemDecoration(new HaominiItemDecoration());
+    }
+
+    public void initListener() {
+        ok.setOnClickListener(this);
+        //选中数量变化监听
+        adapterMedia.setOnCountChangedListener(this);
+        back.setOnClickListener(this);
+    }
+
+    public void loadData() {
+
     }
 
     @Override
@@ -85,10 +108,13 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
 
     @Override
     public void onClick(View v) {
-        if (v == ok) {
+        if (v == ok) { //完成事件
             Intent intent = new Intent();
-            intent.putExtra("data", (LinkedList)resultList);
+            intent.putExtra("data", (LinkedList) resultList);
             getActivity().setResult(Activity.RESULT_OK, intent);
+            getActivity().finish();
+        } else if (v == back) {
+            getActivity().setResult(Activity.RESULT_CANCELED);
             getActivity().finish();
         }
     }
