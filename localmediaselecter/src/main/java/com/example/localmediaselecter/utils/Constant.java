@@ -1,4 +1,4 @@
-package com.example.localmediaselecter;
+package com.example.localmediaselecter.utils;
 
 import android.support.annotation.IntDef;
 

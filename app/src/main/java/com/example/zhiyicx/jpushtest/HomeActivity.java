@@ -3,7 +3,7 @@ package com.example.zhiyicx.jpushtest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.localmediaselecter.Constant;
+import com.example.localmediaselecter.utils.Constant;
 import com.example.localmediaselecter.FragmentMediaSelect;
 
 public class HomeActivity extends AppCompatActivity {

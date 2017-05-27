@@ -1,4 +1,4 @@
-package com.example.localmediaselecter;
+package com.example.localmediaselecter.widget.recycler;
 
 import android.graphics.Rect;
 import android.support.annotation.DimenRes;
@@ -6,6 +6,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.localmediaselecter.R;
 
 /**
  * Created by zhiyicx on 2017/5/26.

@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.example.localmediaselecter.model.ModelLocalMedia;
+import com.example.localmediaselecter.utils.Constant;
+import com.example.localmediaselecter.utils.DealFactory;
 
 import java.util.LinkedList;
 import java.util.List;

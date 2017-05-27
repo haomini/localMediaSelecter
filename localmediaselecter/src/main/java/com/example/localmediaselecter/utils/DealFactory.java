@@ -1,4 +1,4 @@
-package com.example.localmediaselecter;
+package com.example.localmediaselecter.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
 import android.util.SparseArray;
 import android.widget.ImageView;
+
+import com.example.localmediaselecter.R;
 
 /**
  * Created by zhiyicx on 2017/5/26.

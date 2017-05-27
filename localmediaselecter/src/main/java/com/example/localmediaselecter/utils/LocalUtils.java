@@ -1,4 +1,4 @@
-package com.example.localmediaselecter;
+package com.example.localmediaselecter.utils;
 
 import android.content.Context;
 import android.database.Cursor;
