@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 /**
  * Created by zhouhao on 2017/5/25.
@@ -43,6 +44,8 @@ public class ModelLocalVideo extends ModelLocalMedia {
         this.setWidth(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.WIDTH)));
         this.setHeight(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.HEIGHT)));
         this.setDuration(cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DURATION)));
+
+        Log.e("ModelLocalVideo", "ModelLocalVideo(): " + getMimeType());
     }
 
     public long getDuration() {

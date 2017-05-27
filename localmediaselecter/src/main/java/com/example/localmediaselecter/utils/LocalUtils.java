@@ -40,7 +40,7 @@ public class LocalUtils {
         return localPic;
     }
 
-    public static List<ModelLocalMedia> getLocalMedia(Context context, @Constant.MediaModel int model_key) {
+    public static  List<ModelLocalMedia> getLocalMedia(Context context, @Constant.MediaModel int model_key) {
         List<ModelLocalMedia> mediaList = null;
         switch (model_key) {
             case Constant.IMAGE_ONLY:

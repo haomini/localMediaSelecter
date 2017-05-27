@@ -82,7 +82,7 @@ public class FragmentMediaSelect extends Fragment implements AdapterMedia.OnCoun
     public void manageAdapter() {
         //数据源
         mediaList = LocalUtils.getLocalMedia(getContext(), mediaMode);
-        adapterMedia = new AdapterMedia(getContext(), mediaList, modelKey);
+        adapterMedia = new AdapterMedia(getContext(), mediaList, mediaMode);
         mediaContainer.setAdapter(adapterMedia);
         //grid 布局
         mediaContainer.setLayoutManager(new GridLayoutManager(getContext(), 3));
