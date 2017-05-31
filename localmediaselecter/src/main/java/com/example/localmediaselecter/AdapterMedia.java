@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.localmediaselecter.model.ModelLocalMedia;
 import com.example.localmediaselecter.utils.Constant;
@@ -77,15 +78,22 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.MediaViewHol
     public class MediaViewHolder extends RecyclerView.ViewHolder {
         ImageView preview;
         CheckBox status;
+        TextView itemSize, itemName;
+        ImageView itemPreview;
 
         public MediaViewHolder(View itemView) {
             super(itemView);
             preview = (ImageView) itemView.findViewById(R.id.item_preview);
-            ViewGroup.LayoutParams layoutParams = preview.getLayoutParams();
-            layoutParams.width = context.getResources().getDisplayMetrics().widthPixels / 3;
-            layoutParams.height = context.getResources().getDisplayMetrics().widthPixels / 3;
-            preview.setLayoutParams(layoutParams);
+            if (preview != null) {
+                ViewGroup.LayoutParams layoutParams = preview.getLayoutParams();
+                layoutParams.width = context.getResources().getDisplayMetrics().widthPixels / 3;
+                layoutParams.height = context.getResources().getDisplayMetrics().widthPixels / 3;
+                preview.setLayoutParams(layoutParams);
+            }
             status = (CheckBox) itemView.findViewById(R.id.item_preview_status);
+            itemSize = (TextView) itemView.findViewById(R.id.item_size);
+            itemName = (TextView) itemView.findViewById(R.id.item_name);
+            itemPreview = (ImageView) itemView.findViewById(R.id.item_preview_audio);
         }
     }
 
