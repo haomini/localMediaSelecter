@@ -1,1 +1,1 @@
-include ':app', ':localmediaselecter'
+include ':app', ':localmediaselecter', ':audiorecorder'
